@@ -66,8 +66,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 kui clone ss 
-
+windows stoorist app installer laadida v updateda
 composer install see ka eelmisega
+npm i
+tõmba data grip
+winget install SQlite.SQlite
+
 php artisan migrate:fresh --seed
 php artisan key:generate
-env
+.env copida .env.examplest
+php artisan serve et server toole ja frondiks npm run dev
+kõike teha bashis
