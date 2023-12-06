@@ -22,14 +22,15 @@
                         <td>{{ $post->updated_at }}</td>
                         <td>
                             <div class="join">
-                                <button class="btn btn-info join-item">view</button>
+                                <a href="{{ route('posts.show', ['post' => $post]) }}"
+                                 class="btn btn-info join-item">view</a>
                                 <a href="{{ route('posts.edit', ['post' => $post]) }}"
                                     class="btn btn-warning join-item">edit</a>
                                 <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
 
-                                    <input class="btn btn-error join-item" value="Delete">
+                                    <input type="submit" class="btn btn-error join-item" value="Delete">
                                 </form>
                             </div>
                         </td>
