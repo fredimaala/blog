@@ -77,3 +77,5 @@ php artisan key:generate
 .env copida .env.examplest
 php artisan serve et server toole ja frondiks npm run dev
 kõike teha bashis
+
+php artisan migrate:fresh --seed
