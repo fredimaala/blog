@@ -17,4 +17,13 @@ class Post extends Model
             get: fn () => substr($this->body, 0 ,500),
         );
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+
 }

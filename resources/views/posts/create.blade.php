@@ -2,7 +2,7 @@
 @section('title', 'New post')
 @section('content')
     <div class="container mx-auto">
-        <form action="{{route('posts.store')}}" method="POST">
+        <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <label class="form-control w-full max-w-xs">
                 <div class="label">
@@ -30,6 +30,17 @@
     </div>
     @enderror
             </label>
+            <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Image</span>
+                </div>
+                <input type="file" multiple name="images[]" class="file-input file-input-bordered w-full" accept="image/*"/>
+                @error('images.*')
+                    <div class="label">
+                        <span class="label-text-alt text-error">{{$message}}</span>
+                    </div>
+                @enderror
+              </label>
             <input type="submit" value="Submit" class="btn btn-primary ">
         </form>
     </div>
