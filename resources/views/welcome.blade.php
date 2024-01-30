@@ -25,7 +25,7 @@
                             <p class="text-gray-400">{{$post->user->name}}</p>
                             <p class="text-gray-400">{{$post->created_at->diffForHumans()}}</p>
                             <div class="card-actions justify-end">
-                                <button class="btn btn-primary">Buy Now</button>
+                                <a href="{{route('post', ['post' => $post])}}" class="btn btn-primary">Read More</a>
                             </div>
                         </div>
                     </div>
