@@ -11,23 +11,48 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'body'];
+
     protected function snippet(): Attribute
     {
         return Attribute::make(
-            get: fn () => substr($this->body, 0 ,500),
+            get: fn () => substr($this->body, 0, 500),
         );
     }
 
-    public function user(){
+    protected function authHasLiked(): Attribute
+    {
+        return Attribute::make(
+            function () {
+                if (auth()->check()) {
+                    return $this->likes()->where('user_id', auth()->user()->id)->exists();
+                }
+                return false;
+            }
+        );
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(Image::class);
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(like::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

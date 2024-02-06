@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/post/{post}', [PublicController::class, 'post'])->name('post');
-Route::post('/post/{post}', [PublicController::class, 'comment'])->name('comment');
+Route::get('/tag/{tag}', [PublicController::class, 'tag'])->name('tag');
+
 // Route::get('/admin/posts', [PostController::class, 'index'])->name('posts.index');
 // Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
 // Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
@@ -32,6 +33,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/post/{post}/like', [PublicController::class, 'like'])->name('like');
+    Route::post('/post/{post}', [PublicController::class, 'comment'])->name('comment');
+
     Route::resource('/admin/posts', PostController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
