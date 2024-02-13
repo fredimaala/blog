@@ -32,24 +32,28 @@ class PublicController extends Controller
     public function feed()
     {
 
-        $posts = Post::whereIn('user_id',
-        auth()
-        ->user()
-        ->followees()
-        ->select('users.id')
-        ->get()
-        ->pluck('id')
-        ->toArray())
-        ->latetst()
-        ->simplePaginate();
+        $posts = Post::whereIn(
+            'user_id',
+            auth()
+                ->user()
+                ->followees()
+                ->select('users.id')
+                ->get()
+                ->pluck('id')
+                ->toArray()
+        )
+            ->latest()
+            ->simplePaginate();
         return view('welcome', compact('posts'));
     }
 
-    public function post(Post $post){
+    public function post(Post $post)
+    {
         return view('post', compact('post'));
     }
 
-    public function comment(Post $post, Request $request){
+    public function comment(Post $post, Request $request)
+    {
         $comment = new Comment();
         $comment->body = $request->input('body');
         $comment->user()->associate(auth()->user());
@@ -58,9 +62,10 @@ class PublicController extends Controller
         return redirect()->back();
     }
 
-    public function like(Post $post){
+    public function like(Post $post)
+    {
         $like = $post->likes()->where('user_id', auth()->user()->id)->first();
-        if($like){
+        if ($like) {
             $like->delete();
         } else {
             $like = new like();
@@ -71,8 +76,9 @@ class PublicController extends Controller
         return redirect()->back();
     }
 
-    public function follow(User $user){
-        if($user->authHasFollowed){
+    public function follow(User $user)
+    {
+        if ($user->authHasFollowed) {
             $user->followers()->detach(auth()->user());
         } else {
             $user->followers()->attach(auth()->user());
