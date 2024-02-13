@@ -2,6 +2,19 @@
 @section('title', 'Dashboard page')
 @section('content')
     <div class="container mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-xl">{{ $user->name }}</h1>
+                @if ($user->authHasFollowed)
+                    <a class="btn btn-error" href="{{ route('follow', ['user' => $user]) }}">unfollow</a>
+                @else
+                    <a class="btn btn-primary" href="{{ route('follow', ['user' => $user]) }}">Follow</a>
+                @endif
+                <p class="text-gray-400">Followers:</b> {{ $user->followers()->count() }}</p>
+                <p class="text-gray-400">Followees:</b> {{ $user->followees()->count() }}</p>
+            </div>
+        </div>
+        {{$posts->links()}}
         <div class="flex flex-row flex-wrap">
             @foreach ($posts as $post)
                 <div class="basis-1/4 my-3">
@@ -22,19 +35,17 @@
                         <div class="card-body">
                             <h2 class="card-title">{{ $post->title }}</h2>
                             <p>{{ $post->snippet }}</p>
-                            <p class="text-gray-400"><a href="{{route('user', ['user' => $post->user])}}">
-                                 {{$post->user->name }}</a>
-                                </p>
+                            <p class="text-gray-400">{{ $post->user->name }}</p>
                             <p class="text-gray-400">{{ $post->created_at->diffForHumans() }}</p>
                             <p class="text-gray-400"><b>Comments:</b>{{ $post->comments()->count() }}</p>
                             <p class="text-gray-400"><b>Likes:</b>{{ $post->likes()->count() }}</p>
-                        <div>
-                            @foreach($post->tags as $tag)
-                                <a href="{{route('tag', ['tag' => $tag])}}">
-                                    <div class="badge badge-outline">{{$tag->name}}</div>
-                                </a>
+                            <div>
+                                @foreach ($post->tags as $tag)
+                                    <a href="{{ route('tag', ['tag' => $tag]) }}">
+                                        <div class="badge badge-outline">{($tag->name)}</div>
+                                    </a>
                                 @endforeach
-                        </div>
+                            </div>
                             <div class="card-actions justify-end">
                                 @if ($post->authHasLiked)
                                     <a href="{{ route('like', ['post' => $post]) }}" class="btn btn-error">Unlike</a>
