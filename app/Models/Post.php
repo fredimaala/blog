@@ -12,6 +12,9 @@ class Post extends Model
 
     protected $fillable = ['title', 'body'];
 
+    protected $with = ['images', 'user'];
+    protected $appends = ['snippet'];
+
     protected function snippet(): Attribute
     {
         return Attribute::make(

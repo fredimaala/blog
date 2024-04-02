@@ -17,7 +17,10 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate();
-        if(request()->wantsJson())
+        $posts = Post::with('images')->latest()->paginate();
+        if(request()->wantsJson()){
+            return $posts;
+        }
         return view('posts.index', compact('posts'));
     }
 
