@@ -2,6 +2,7 @@
 @section('title', 'Dashboard page')
 @section('content')
     <div class="container mx-auto">
+        {{$posts->links()}}
         <div class="flex flex-row flex-wrap">
             @foreach ($posts as $post)
                 <div class="basis-1/4 my-3">

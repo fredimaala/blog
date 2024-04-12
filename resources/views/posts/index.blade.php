@@ -3,6 +3,7 @@
 @section('content')
     <div class="container mx-auto">
         <a href="{{ route('posts.create') }}" class="btn btn-primary">New post</a>
+        {{$posts->links()}}
         <table class="table table-zebra">
             <thead>
                 <tr>
@@ -38,4 +39,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{$posts->links()}}
+    </div>
     @endsection

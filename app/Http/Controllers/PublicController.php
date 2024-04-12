@@ -13,7 +13,7 @@ class PublicController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->simplePaginate();
         return view('welcome', compact('posts'));
     }
 
